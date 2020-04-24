@@ -5,8 +5,7 @@ import ContainWeatherApp from './components/ContainWeatherApp'
 function App() {
   return (
     <div>
-      hello from app.js
-      
+
       <ContainWeatherApp />
 
 

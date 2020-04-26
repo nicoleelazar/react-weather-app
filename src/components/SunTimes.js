@@ -3,8 +3,8 @@ import React, { Component } from 'react'
 export default class SunTimes extends Component {
 
 
-    calcSunrise = () => {
-        let unixSunrise = 1485762037
+    calcSunrise = (arg) => {
+        let unixSunrise = arg
         let sunrise = new Date(unixSunrise * 1000)
         let sunriseHour = sunrise.getHours()
         let sunriseMin = sunrise.getMinutes()
@@ -15,8 +15,9 @@ export default class SunTimes extends Component {
 
 
 
-    calcSunset = () => {
-        let unixSunset = 1485794875
+    calcSunset = (arg) => {
+        let unixSunset = arg
+        //multiply by 1000 because unix is in seconds and JS uses milliseconds
         let sunset = new Date(unixSunset * 1000)
         let sunsetHour = sunset.getHours()
         let sunsetMin = sunset.getMinutes()
@@ -26,17 +27,20 @@ export default class SunTimes extends Component {
     }
 
     render() {
+
+        const { sunrise, sunset } = this.props
+
         return (
             <div>
 
                 <div className="contain-flex-stats text-dark">
                     <div className="flex-item">
                         <div>Sunrise</div>
-                        <div>{this.calcSunrise()}</div>
+                        <div>{this.calcSunrise(sunrise)}</div>
                     </div>
                     <div className="flex-item">
                         <div>Sunset</div>
-                        <div>{this.calcSunset()}</div>
+                        <div>{this.calcSunset(sunset)}</div>
                     </div>
 
                 </div>

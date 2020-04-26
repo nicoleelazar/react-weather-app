@@ -18,6 +18,7 @@
     padding: 20px;
     color: var(--c-white);
     font-family: 'Montserrat', sans-serif;
+    line-height: 1.5;
     position: relative;
 }
 
@@ -126,6 +127,11 @@
 
 .icon-description {
     text-align: left;
+}
+
+.text-capitalise {
+    text-transform: capitalize;
+
 }
 
 .text-dark {

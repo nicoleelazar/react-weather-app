@@ -15,11 +15,15 @@
     min-height: 100vh;
     width: 40%;
     margin: 0 auto;
-    padding: 20px;
     color: var(--c-white);
     font-family: 'Montserrat', sans-serif;
     line-height: 1.5;
     position: relative;
+}
+
+.contentAll {
+    padding: 20px;
+
 }
 
 @media only screen and (max-width: 1000px) {
@@ -160,4 +164,10 @@
 .date {
     font-size: 18px;
 
+}
+
+/* Alert */
+
+.alert-message {
+    text-align: center;
 }

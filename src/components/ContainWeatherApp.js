@@ -47,6 +47,7 @@ export default class ContainWeatherApp extends Component {
 
         if (searchCity !== "") {
 
+
             axios
                 .get(weatherUrl)
 
@@ -69,11 +70,12 @@ export default class ContainWeatherApp extends Component {
                             max: res.data.main.temp_max,
                             sunrise: res.data.sys.sunrise,
                             sunset: res.data.sys.sunset,
-                            currentTime: res.data.dt,
                             timezone: res.data.timezone,
+                            icon: res.data.weather[0].icon,
                             id: res.data.id,
 
                         })
+
                         console.log('data retrieved')
                     }
 
@@ -106,8 +108,26 @@ export default class ContainWeatherApp extends Component {
 
 
     // change background image according to time of day
-    DayOrNight = () => {
-        return new Date().getHours()
+    dayOrNight = () => {
+        // return new Date().getHours()
+
+        if (this.state.alerting) {
+            return
+        }
+
+        else {
+
+            let rawZoneMillisec = this.state.timezone * 1000
+            let currentMillisec = new Date().getTime()
+            let dateToday = new Date(currentMillisec + rawZoneMillisec)
+            let hourUtc = dateToday.getUTCHours()
+
+            console.log(hourUtc)
+
+            return hourUtc
+
+        }
+
     }
 
 
@@ -118,7 +138,8 @@ export default class ContainWeatherApp extends Component {
 
         return (
             <div className="contain-app" >
-                <div className={this.DayOrNight() > 18 ? 'night-time' : 'day-time'}></div>
+                <div className={this.state.alerting ? 'alerting' : null}></div>
+                <div className={this.dayOrNight() > 5 && this.dayOrNight() < 18 ? 'day-time' : 'night-time'}></div>
 
                 <div className="contentAll">
                     <ForecastToday
@@ -130,8 +151,8 @@ export default class ContainWeatherApp extends Component {
                         max={this.state.max}
                         sunrise={this.state.sunrise}
                         sunset={this.state.sunset}
-                        currentTime={this.state.currentTime}
                         timezone={this.state.timezone}
+                        icon={this.state.icon}
                         key={this.state.id}
                         getWeather={this.getWeather}
                         alert={this.state.alerting}

@@ -9,6 +9,13 @@ export default class SunTimes extends Component {
         let sunTimeHourUtc = sunTimeUtc.getUTCHours()
         let sunTimeMinUtc = sunTimeUtc.getUTCMinutes()
 
+        if (sunTimeHourUtc < 10) {
+            sunTimeHourUtc = `0${sunTimeHourUtc}`
+        }
+        if (sunTimeMinUtc < 10) {
+            sunTimeMinUtc = `0${sunTimeMinUtc}`
+        }
+
         return `${sunTimeHourUtc} : ${sunTimeMinUtc}`
 
     }
@@ -21,7 +28,7 @@ export default class SunTimes extends Component {
         return (
             <div>
 
-                <div className="contain-flex-stats text-dark">
+                <div className="contain-flex-stats">
                     <div className="flex-item">
                         <div>Sunrise</div>
                         <div>{this.calcSunriseSunset(sunrise, timezone)}</div>

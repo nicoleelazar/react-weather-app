@@ -3,15 +3,20 @@ import SearchBar from './SearchBar'
 import SunTimes from './SunTimes'
 import CurrentDateTime from './CurrentDateTime'
 import Alert from './Alert'
-import testpic from '../assets/testpic.png'
+// import testpic from '../assets/testpic.png'
 
 
 export default class ForecastToday extends Component {
 
+    displayIcon = (uniqueIcon) => {
+        let url = `http://openweathermap.org/img/wn/${uniqueIcon}@2x.png`
+        return url
+    }
+
 
     render() {
 
-        const { city, temp, description, humidity, min, max, sunrise, sunset, currentTime, timezone, getWeather, alert, alertMsg } = this.props
+        const { city, temp, description, humidity, min, max, sunrise, sunset, timezone, icon, getWeather, alert, alertMsg } = this.props
 
         return (
             <div>
@@ -29,14 +34,13 @@ export default class ForecastToday extends Component {
                         <h4>Today</h4>
 
                         <CurrentDateTime
-                            currentTime={currentTime}
                             timezone={timezone}
                         />
 
                         <div className="temp-main">{Math.round(temp)}°c</div>
 
                         <div className="contain-flex-stats">
-                            <img className="icon flex-item" src={testpic} alt="weather" />
+                            <img className="icon flex-item" src={this.displayIcon(icon)} alt="weather" />
                             <div className="icon-description flex-item">
                                 <div className="text-capitalise">{description}</div>
                                 <div>Humidity: {humidity}%</div>
@@ -64,7 +68,6 @@ export default class ForecastToday extends Component {
                         <SunTimes
                             sunrise={sunrise}
                             sunset={sunset}
-                            currentTime={currentTime}
                             timezone={timezone}
                         />
 

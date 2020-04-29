@@ -2,11 +2,13 @@ import React, { Component } from 'react'
 
 export default class CurrentDateTime extends Component {
 
-    buildDate = (rawTime, rawZone) => {
+    buildDate = (rawZone) => {
         let days = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
         let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-        let dateToday = new Date((rawTime + rawZone) * 1000)
+        let rawZoneMillisec = rawZone * 1000
+        let currentMillisec = new Date().getTime()
+        let dateToday = new Date(currentMillisec + rawZoneMillisec)
         // let dateUtc = dateToday.toUTCString()
         let hourUtc = dateToday.getUTCHours()
         let minUtc = dateToday.getUTCMinutes()
@@ -14,16 +16,23 @@ export default class CurrentDateTime extends Component {
         let monthUtc = months[dateToday.getUTCMonth()]
         let dayUtc = days[dateToday.getUTCDay()]
 
+        if (hourUtc < 10) {
+            hourUtc = `0${hourUtc}`
+        }
+        if (minUtc < 10) {
+            minUtc = `0${minUtc}`
+        }
+
         return `${dayUtc} ${dateUtc} ${monthUtc}, ${hourUtc}:${minUtc}`
     }
 
     render() {
 
-        const { currentTime, timezone } = this.props
+        const { timezone } = this.props
 
         return (
             <div>
-                <div className="date">{this.buildDate(currentTime, timezone)} </div>
+                <div className="date">{this.buildDate(timezone)} </div>
 
             </div>
         )
